@@ -2,24 +2,30 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"log"
 	"net/http"
 
 	"github.com/PuerkitoBio/goquery"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	http.HandleFunc("/trend", trendHandler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
-}
+	r := gin.New()
 
-func trendHandler(w http.ResponseWriter, r *http.Request) {
-	trend, err := qiitaTrend()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Fprintln(w, trend)
+	r.Use(gin.Logger())
+	r.Use(gin.Recovery())
+
+	r.GET("/trend", func(c *gin.Context) {
+		trend, err := qiitaTrend()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, err)
+			return
+		}
+		c.String(http.StatusOK, trend)
+		return
+	})
+
+	r.Run(":8080")
 }
 
 func qiitaTrend() (string, error) {
