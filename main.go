@@ -9,6 +9,10 @@ import (
 )
 
 func main() {
+	hatebuTrend()
+}
+
+func qiitaTrend() {
 	doc, err := goquery.NewDocument("https://qiita.com/")
 	if err != nil {
 		log.Fatal(err)
@@ -19,5 +23,4 @@ func main() {
 		errors.New("data-hyperapp-props does not exist")
 	}
 	fmt.Println(val)
-	fmt.Printf("%T\n", val)
 }
