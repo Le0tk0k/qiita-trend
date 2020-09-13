@@ -2,8 +2,9 @@ package main
 
 import (
 	"errors"
-	"log"
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gin-gonic/gin"
@@ -31,13 +32,13 @@ func main() {
 func qiitaTrend() (string, error) {
 	doc, err := goquery.NewDocument("https://qiita.com/")
 	if err != nil {
-		log.Fatal(err)
+		fmt.Fprintln(os.Stderr, err)
 		return "", err
 	}
 	trend := doc.Find("div[data-hyperapp-app='Trend']")
 	val, exists := trend.Attr("data-hyperapp-props")
 	if !exists {
-		return "", errors.New("data-hyperapp-props does not exist")
+		return "", errors.New("Internal Server Error")
 	}
 	return val, nil
 }
