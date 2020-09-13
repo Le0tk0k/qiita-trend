@@ -4,7 +4,7 @@ Qiitaのトレンド記事を取得するAPI
 ## Install
 
 ```bash
-$ go get github.com/Le0tk0k/Qiita-trend
+$ go get github.com/Le0tk0k/qiita-trend
 ```
 
 ## Usage
