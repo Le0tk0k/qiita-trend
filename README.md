@@ -1,6 +1,9 @@
 # Qiita Trend
 Qiitaのトレンド記事を取得するAPI
 
+## Explanation Entry
+[GoでQiitaのトレンドを取得するAPI①作ってみた](https://qiita.com/Le0tk0k/items/5ce324dba27c892d9f28)
+
 ## Install
 
 ```bash
